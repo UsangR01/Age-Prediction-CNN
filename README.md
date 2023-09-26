@@ -36,67 +36,83 @@ Table of Contents
 8.    References
         External Libraries and Frameworks
 
-1. Introduction
+**1. INTRODUCTION**
 
 Project Overview
 ----------------
-
 This project aims to develop Convolutional Neural Network (CNN) models for age classification using facial image data. The project leverages deep learning techniques to predict the age of individuals based on input image data.
 
 Objective
 ----------
-
 The primary objectives of this project are:
 
     Age Classification: Predicting the age group of individuals (e.g., ages between: 1-2, 3-9, 10-20, 21-27, 28-35, 36-65 and >=66).
 
 Dataset Description
 -------------------
-
 The project utilizes a dataset of facial pixel data, including age, gender and ethnicity labels for each image. The dataset consists of grayscale images, and each image is preprocessed to be of size 48x48 pixels.
 
-2. Data Preprocessing
+**2. DATA PREPROCESSING**
 
 Data Loading
 ------------
-
 The dataset is loaded into the project using custom data loading functions. It includes image data and corresponding labels for age.
 
 Data Augmentation
 ------------------
-
 Data augmentation techniques are applied to increase the diversity of the training dataset. Augmentation includes random rotations, shifts, flips, and zooms to improve model generalization.
 
 Mapping Age to Class
 --------------------
-
 To facilitate age classification, we map age labels to age classes. This mapping function categorizes ages into predefined classes (mentioned earlier in the objectives section). The function is applied to the age labels in the dataset.
 
 Data Splitting
 --------------
-
 The dataset is split into training, validation, and test sets to facilitate model training and evaluation.
 
-3. Model Architecture
+**3. MODEL ARCHITECTURE**
 
-Model: Age Classification
--------------------------
+CNN architecture for age classification:
+----------------------------------------
+    Data Augmentation:
+        To enhance the training dataset and improve the model's robustness, data augmentation techniques are applied. These include random rotations, width and height shifts, shearing, zooming, and horizontal flipping.
+        
+Convolutional Neural Network (CNN):
+        The core of the model is a Convolutional Neural Network (CNN), a powerful architecture for image classification tasks.
 
-    CNN architecture for age classification.
-    Convolutional layers, pooling layers, dropout, and fully connected layers.
-    ReLU activation functions, Softmax activation functions.
+Input Layer: 
+        The network accepts grayscale images with dimensions of image_height x image_width x num_channels, where num_channels is set to 1 for grayscale images.
 
-4. Training
+Convolutional Layers: 
+        Three convolutional layers are employed, each followed by a Rectified Linear Unit (ReLU) activation function. These layers detect features at different levels of abstraction.
+        The first convolutional layer consists of 32 filters with a kernel size of (3, 3).
+        The second convolutional layer contains 64 filters with a (3, 3) kernel.
+        The third convolutional layer uses 128 filters with a (3, 3) kernel.
+
+Pooling Layers: 
+        After each convolutional layer, a max-pooling layer is applied to downsample the feature maps. Max-pooling reduces the spatial dimensions of the features.
+
+Batch Normalization: 
+        Batch normalization is utilized after each convolutional layer. This technique helps stabilize training by normalizing the activations.
+
+Flatten Layer: 
+        Before transitioning to fully connected layers, the feature maps are flattened into a one-dimensional vector.
+
+Dense Layers: 
+        Two dense (fully connected) layers are incorporated for classification purposes. These layers have 256 units each and utilize the ReLU activation function. A dropout layer with a rate of 0.5 is applied after the first dense layer to prevent overfitting.
+
+Output Layer: 
+        The final layer consists of num_classes units, where num_classes is the number of age classes to be predicted. It employs the softmax activation function to produce class probabilities.
+        
+**4. TRAINING**
 
 Model Training Setup
 --------------------
-
     Model compilation with loss functions and optimizers.
     Learning rate scheduling.
 
 Training Procedure
 -------------------
-
     Training the models on the training dataset.
     Early stopping and model checkpointing for model saving.
 
